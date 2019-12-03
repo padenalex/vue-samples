@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .text-red {
+            color: red;
+        }
+        .text-green {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <input v-model="message">
+        <input v-bind:value="message" v-on:input="message = $event.target.value">
+        {{message}}
+        
+        <div>
+            <input v-model="secretForm.username">
+            <input v-model="secretForm.notPassword">
+            <button v-on:click="submitForm">Submit to Pandora</button>
+        </div>
+        {{filterList}}
+        
+        <p>
+            <button v-on:click="user = {name: 'BOB'}">press this shit brvh</button>
+            <span v-if="user">
+                {{user.name}}
+            </span>           
+        </p>
+        <p>
+            <span v-for="(item, index) in list">
+                <span v-bind:class="{'text-red': item.color === 'red'}">
+                    Index: {{index+1}} - Item: {{item}} <br>
+                </span>
+            </span>
+            <br>
+            <span v-for="item in filterList">
+                <span>
+                    HERE
+                    {{item.name}},
+                </span>
+            </span>
+            
+        <p> I love fucking breaks and shit <br><br></p>
+        
+        <button @click="timeClicked = timeNow1()">Fuuuck man what time is it?</button>
+        <p v-if="timeClicked">
+            {{timeClicked}}
+        </p>
+        <br>
+        <button @click="timeClicked2 = timeNow2">Real time that's fakre</button>
+        <p v-if="timeClicked2">
+            {{timeClicked2}}
+        </p>
+    </div>
+
+    <script src="https://vuejs.org/js/vue.js"></script>
+
+    <script>
+        
+        let app = new Vue({
+            el: '#app',
+            data: { 
+                message: "Some h0t Trash",
+                secretForm: {
+                    username: "",
+                    notPassword: "",
+                },
+                list: [
+                    {name: "a = test", color: "red"},
+                    {name: "b = rock", color: "red"},
+                    {name: "b = paper", color: "green"},
+                ],
+                user: null,
+                timeClicked: null,
+                timeClicked2: null,
+            },
+            methods: {
+                submitForm() {
+                    console.log("Big Frog Titties", this.secretForm);
+                     
+                    let callLog = () => {
+                        this.log("Logging: somethn")
+                    }
+                },
+                log(v) {
+                    console.log(v);
+                },
+                timeNow1() {
+                    return Date.now()
+                }                
+            },
+            computed: {
+                formInfo: function() {
+                    return this.secretForm.username + " " + this.secretForm.notPassword;
+                },
+                filterList: function() {
+                    return this.list.filter(x => {
+                        return x.name.indexOf("b") === 0
+                    })
+                },
+                timeNow2: vue => {
+                    let throwawaySoYouUpdate = vue.formInfo;
+                    return Date.now();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
